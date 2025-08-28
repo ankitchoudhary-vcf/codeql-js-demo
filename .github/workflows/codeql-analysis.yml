@@ -17,11 +17,21 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # fetch full history so CodeQL can map results to branch
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: javascript
 
+      # Autobuild not needed for JS, but keep for other langs
+      # - name: Autobuild
+      #   uses: github/codeql-action/autobuild@v3
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript"
+          output: results.sarif
+          upload: true
