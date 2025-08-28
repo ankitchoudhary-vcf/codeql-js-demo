@@ -1,6 +1,9 @@
 name: "CodeQL Analysis on Release"
 
 on:
+  push:
+    branches:
+      - main
   release:
     types: [published]
 
