@@ -1,19 +1,14 @@
-// src/utils.js
+const { exec } = require("child_process");
 
-// BAD: using eval is a security risk
-function runUserCode(input) {
-  return eval(input);
+// BAD: command injection vulnerability
+function runCommand(userInput) {
+  exec(`ls ${userInput}`, (err, stdout, stderr) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(stdout);
+  });
 }
 
-// GOOD: safe function
-function add(a, b) {
-  return a + b;
-}
-
-// GOOD: sanitizing user input (mock example)
-function safeQuery(userInput) {
-  const sanitized = userInput.replace(/['"]/g, "");
-  return `SELECT * FROM users WHERE name = '${sanitized}'`;
-}
-
-module.exports = { runUserCode, add, safeQuery };
+module.exports = { runUserCode, add, safeQuery, runCommand };
