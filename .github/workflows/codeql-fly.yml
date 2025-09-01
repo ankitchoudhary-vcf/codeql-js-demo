@@ -10,7 +10,7 @@ on:
         type: string
 
 env:
-  RELEASE_TAG: auto-added
+  RELEASE_TAG: v0902.1
 
 jobs:
   analyze:
